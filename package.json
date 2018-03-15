@@ -31,5 +31,8 @@
     "url": "https://github.com/hsribei/boilerplate-project-metricimpconverter"
   },
   "keywords": ["node", "hyperdev", "express"],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.17.2"
+  }
 }
