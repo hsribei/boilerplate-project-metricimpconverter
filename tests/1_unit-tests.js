@@ -149,4 +149,43 @@ suite("Unit Tests", function() {
       done();
     });
   });
+
+  suite(
+    "Function convertHandler.getString(initNum, initUnit, returnNum, returnUnit)",
+    function() {
+      test("Singular spelled-out unit name (e.g. 1 gallon)", function(done) {
+        assert.strictEqual(
+          convertHandler.getString(1, "gal", 3.78541, "l"),
+          "1 gallon converts to 3.78541 liters"
+        );
+
+        assert.strictEqual(
+          convertHandler.getString(3.78541, "l", 1, "gal"),
+          "3.78541 liters convert to 1 gallon"
+        );
+        done();
+      });
+
+      test("Plural spelled-out unit name (e.g. 2 miles)", function(done) {
+        assert.strictEqual(
+          convertHandler.getString(2, "mi", 3.21868, "km"),
+          "2 miles convert to 3.21868 kilometers"
+        );
+
+        assert.strictEqual(
+          convertHandler.getString(3.21868, "km", 2, "mi"),
+          "3.21868 kilometers convert to 2 miles"
+        );
+        done();
+      });
+
+      test("Round to 5 decimal places", function(done) {
+        assert.strictEqual(
+          convertHandler.getString(3, "lbs", 1.360776, "kg"),
+          "3 pounds convert to 1.36078 kilograms"
+        );
+        done();
+      });
+    }
+  );
 });

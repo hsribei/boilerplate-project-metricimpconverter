@@ -13,12 +13,12 @@ const REGEXP_STRING = String.raw`^(\d*|${FRACTIONAL})\s*([a-zA-Z]{1,3})$`;
 
 function ConvertHandler() {
   this.KNOWN_UNITS = {
-    gal: "gallons",
-    l: "liters",
-    mi: "miles",
-    km: "kilometers",
-    lbs: "pounds",
-    kg: "kilograms"
+    gal: "gallon",
+    l: "liter",
+    mi: "mile",
+    km: "kilometer",
+    lbs: "pound",
+    kg: "kilogram"
   };
 
   this.CONVERSION_PAIRS = {
@@ -94,7 +94,25 @@ function ConvertHandler() {
   };
 
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
-    var result;
+    function round(number, precision) {
+      return +(Math.round(number + "e+" + precision) + "e-" + precision);
+    }
+
+    const precision = 5;
+    const spelledOutInitUnit = this.spellOutUnit(initUnit);
+    const spelledOutReturnUnit = this.spellOutUnit(returnUnit);
+
+    const firstPart =
+      initNum === 1
+        ? `${round(initNum, precision)} ${spelledOutInitUnit} converts to `
+        : `${round(initNum, precision)} ${spelledOutInitUnit}s convert to `;
+
+    const secondPart =
+      returnNum === 1
+        ? `${round(returnNum, precision)} ${spelledOutReturnUnit}`
+        : `${round(returnNum, precision)} ${spelledOutReturnUnit}s`;
+
+    const result = firstPart + secondPart;
 
     return result;
   };
