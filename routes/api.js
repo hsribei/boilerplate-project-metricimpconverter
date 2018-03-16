@@ -8,15 +8,15 @@
 
 "use strict";
 
-var ConvertHandler = require("../controllers/convertHandler.js");
+const ConvertHandler = require("../controllers/convertHandler.js");
 
 module.exports = function(app) {
-  var convertHandler = new ConvertHandler();
+  const convertHandler = new ConvertHandler();
 
   app.route("/api/convert").get(function(req, res) {
-    var input = req.query.input;
-    var initNum = convertHandler.getNum(input);
-    var initUnit = convertHandler.getUnit(input);
+    const input = req.query.input;
+    const initNum = convertHandler.getNum(input);
+    const initUnit = convertHandler.getUnit(input);
 
     if (initNum !== null && initUnit === null) {
       res.status(400).send("invalid unit");
@@ -25,9 +25,9 @@ module.exports = function(app) {
     } else if (initNum === null && initUnit === null) {
       res.status(400).send("invalid number and unit");
     } else {
-      var returnNum = convertHandler.convert(initNum, initUnit);
-      var returnUnit = convertHandler.getReturnUnit(initUnit);
-      var string = convertHandler.getString(
+      const returnNum = convertHandler.convert(initNum, initUnit);
+      const returnUnit = convertHandler.getReturnUnit(initUnit);
+      const string = convertHandler.getString(
         initNum,
         initUnit,
         returnNum,
