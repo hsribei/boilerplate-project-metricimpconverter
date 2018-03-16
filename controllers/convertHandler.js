@@ -6,10 +6,11 @@
 *
 */
 
+const UNIT = String.raw`[a-zA-Z]+$`;
 const DECIMAL = String.raw`\d+\.\d+`;
 const DECIMAL_OR_INTEGER = String.raw`(?:${DECIMAL}|\d+)`;
 const FRACTIONAL = String.raw`${DECIMAL_OR_INTEGER}(?:/${DECIMAL_OR_INTEGER})?`;
-const REGEXP_STRING = String.raw`^(\d*|${FRACTIONAL})\s*([a-zA-Z]{1,3})$`;
+const NUMBER = String.raw`^(\d*|${FRACTIONAL})\s*${UNIT}`;
 
 function ConvertHandler() {
   this.KNOWN_UNITS = {
@@ -31,7 +32,7 @@ function ConvertHandler() {
   };
 
   this.getNum = function(input) {
-    const regexp = new RegExp(REGEXP_STRING);
+    const regexp = new RegExp(NUMBER);
     const match = regexp.exec(input);
     if (match) {
       // Eval deserves an explanation!
@@ -48,10 +49,10 @@ function ConvertHandler() {
   };
 
   this.getUnit = function(input) {
-    const regexp = new RegExp(REGEXP_STRING);
+    const regexp = new RegExp(UNIT);
     const match = regexp.exec(input);
     if (match) {
-      const unit = match[2];
+      const unit = match[0];
       if (Object.keys(this.KNOWN_UNITS).includes(unit.toLowerCase())) {
         return unit;
       } else {

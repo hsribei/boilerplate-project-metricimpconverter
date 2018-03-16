@@ -17,21 +17,30 @@ module.exports = function(app) {
     var input = req.query.input;
     var initNum = convertHandler.getNum(input);
     var initUnit = convertHandler.getUnit(input);
-    var returnNum = convertHandler.convert(initNum, initUnit);
-    var returnUnit = convertHandler.getReturnUnit(initUnit);
-    var string = convertHandler.getString(
-      initNum,
-      initUnit,
-      returnNum,
-      returnUnit
-    );
 
-    res.json({
-      initNum,
-      initUnit,
-      returnNum,
-      returnUnit,
-      string
-    });
+    if (initNum !== null && initUnit === null) {
+      res.status(400).send("invalid unit");
+    } else if (initNum === null && initUnit !== null) {
+      res.status(400).send("invalid number");
+    } else if (initNum === null && initUnit === null) {
+      res.status(400).send("invalid number and unit");
+    } else {
+      var returnNum = convertHandler.convert(initNum, initUnit);
+      var returnUnit = convertHandler.getReturnUnit(initUnit);
+      var string = convertHandler.getString(
+        initNum,
+        initUnit,
+        returnNum,
+        returnUnit
+      );
+
+      res.json({
+        initNum,
+        initUnit,
+        returnNum,
+        returnUnit,
+        string
+      });
+    }
   });
 };
