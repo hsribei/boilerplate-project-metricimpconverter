@@ -9,6 +9,10 @@ const fccTestingRoutes = require("./routes/fcctesting.js");
 const runner = require("./test-runner");
 
 const app = express();
+const helmet = require("helmet");
+
+app.use(helmet.noSniff());
+app.use(helmet.xssFilter());
 
 app.use("/public", express.static(process.cwd() + "/public"));
 
