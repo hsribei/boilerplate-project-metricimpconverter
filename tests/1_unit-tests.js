@@ -64,15 +64,9 @@ suite("Unit Tests", function() {
       ];
       input.forEach(function(unit) {
         // without space
-        assert.strictEqual(
-          convertHandler.getUnit("3.14" + unit),
-          unit.toLowerCase()
-        );
+        assert.strictEqual(convertHandler.getUnit("3.14" + unit), unit);
         // with space
-        assert.strictEqual(
-          convertHandler.getUnit("3.14 " + unit),
-          unit.toLowerCase()
-        );
+        assert.strictEqual(convertHandler.getUnit("3.14 " + unit), unit);
       });
       done();
     });
@@ -125,7 +119,7 @@ suite("Unit Tests", function() {
     });
 
     test("L to Gal", function(done) {
-      assert.approximately(convertHandler.convert(5, "l"), 1.32086, 0.1);
+      assert.approximately(convertHandler.convert(5, "L"), 1.32086, 0.1);
       done();
     });
 

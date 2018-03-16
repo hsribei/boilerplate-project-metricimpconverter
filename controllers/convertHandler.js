@@ -51,8 +51,8 @@ function ConvertHandler() {
     const regexp = new RegExp(REGEXP_STRING);
     const match = regexp.exec(input);
     if (match) {
-      const unit = match[2].toLowerCase();
-      if (Object.keys(this.KNOWN_UNITS).includes(unit)) {
+      const unit = match[2];
+      if (Object.keys(this.KNOWN_UNITS).includes(unit.toLowerCase())) {
         return unit;
       } else {
         return null;
@@ -63,12 +63,12 @@ function ConvertHandler() {
   };
 
   this.getReturnUnit = function(initUnit) {
-    const res = this.CONVERSION_PAIRS[initUnit];
+    const res = this.CONVERSION_PAIRS[initUnit.toLowerCase()];
     return res ? res : null;
   };
 
   this.spellOutUnit = function(unit) {
-    const res = this.KNOWN_UNITS[unit];
+    const res = this.KNOWN_UNITS[unit.toLowerCase()];
 
     return res ? res : null;
   };
@@ -77,6 +77,7 @@ function ConvertHandler() {
     const galToL = 3.78541;
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
+    initUnit = initUnit.toLowerCase();
 
     const conversionCoeficient = {
       gal: galToL,
