@@ -22,11 +22,11 @@ suite("Functional Tests", function() {
           .get("/api/convert")
           .query({ input: "10L" })
           .end(function(err, res) {
-            assert.equal(res.status, 200);
-            assert.equal(res.body.initNum, 10);
-            assert.equal(res.body.initUnit, "L");
+            assert.strictEqual(res.status, 200);
+            assert.strictEqual(res.body.initNum, 10);
+            assert.strictEqual(res.body.initUnit, "L");
             assert.approximately(res.body.returnNum, 2.64172, 0.1);
-            assert.equal(res.body.returnUnit, "gal");
+            assert.strictEqual(res.body.returnUnit, "gal");
             done();
           });
       });
